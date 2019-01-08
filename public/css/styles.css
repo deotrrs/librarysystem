@@ -1,0 +1,14 @@
+.add-button{
+    display:flex;
+    float:right;
+}
+img{
+    width:100%;
+}
+.table .item_image{
+    width:120px;
+}
+.modal .item_image{
+    width:400px;
+    height:400px;
+}
