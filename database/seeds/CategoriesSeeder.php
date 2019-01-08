@@ -11,8 +11,16 @@ class CategoriesSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('categories')->insert([[
-            'name' => "Tutorial",
-        ]]);
+        DB::table('categories')->insert([
+        [
+            'name' => "Reference",
+        ],
+        [
+            'name' => "Thesis",
+        ],
+        [
+            'name' => "Novel",
+        ]
+        ]);
     }
 }

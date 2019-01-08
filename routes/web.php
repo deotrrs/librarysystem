@@ -12,10 +12,10 @@
 */
 
 Route::get('/', function () {
-    return redirect(route('books'));
+    return redirect(route('view'));
 });
 
-Route::get('/', 'BookController@view')->name('view');
+Route::get('/', 'UserController@index')->name('view');
 
 Route::group(['prefix'=>'books'], function(){
     Route::get('/', 'BookController@index')->name('books');

@@ -12,3 +12,14 @@ img{
     width:400px;
     height:400px;
 }
+.card{
+    height:500px;
+    width:18rem;
+}
+.card .item_image{
+    width:18rem;
+    max-height:200px;
+}
+.card .item_image img{
+    max-height:200px;
+}
