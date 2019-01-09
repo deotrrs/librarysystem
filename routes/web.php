@@ -21,6 +21,10 @@ Route::get('/', function(){
     return view('index');
 })->name('view');
 
+Route::get('/table', function(){
+    return view('books.react');
+})->name('view');
+
 Route::group(['prefix'=>'books'], function(){
     Route::get('/', 'BookController@index')->name('books');
     Route::get('/archive', 'BookController@archive')->name('archive');
