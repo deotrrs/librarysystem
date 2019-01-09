@@ -82,49 +82,44 @@
                 </button>
             </div>
             <div class="modal-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div><br />
-                    @endif
                 <form class="addBooks">
                     @csrf
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="name">Book Title:</label>
-                            <input type="text" name="title" id="title validationCustom03" class="form-control" required>
-                            <div class="invalid-feedback">
-                                Please choose a username.
-                            </div>    
+                            <input type="text" name="title" id="title" class="form-control">
+                            <small class="title">
+                            </small>    
                         </div>
                         <div class="col-md-6">
                             <label for="isbn">ISBN:</label>
-                            <input type="text" name="isbn" id="isbn" class="form-control" required>
+                            <input type="text" name="isbn" id="isbn" class="form-control">
+                            <small class="isbn"></small>    
                         </div>              
                     </div>
                     <div class="form-row">                        
                         <div class="col-md-3">
                             <label for="year">Year Published:</label>
-                            <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="year" required>
+                            <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="year">
+                            <small class="year"></small> 
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="author">Author: </label>
-                        <input type="text" class="form-control" name="author" id="author" required>
+                        <input type="text" class="form-control" name="author" id="author">
+                        <small class="author"></small><br>
                         <label for="author">Publisher: </label>
-                        <input type="text" class="form-control" name="publisher" id="publisher" required>
+                        <input type="text" class="form-control" name="publisher" id="publisher">
+                        <small class="publisher"></small>
                     </div>
                     <div class="form-group">
-                            <select name="category" id="category" class="form-control" required>
+                            <select name="category" id="category" class="form-control">
                                 <option value="" selected disabled> Select Category </option>
                                 @foreach ($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                 @endforeach                        
                             </select>
+                            <small class="category"></small>
                     </div>
                     <div class="form-group">
                         <button class="btn btn-success" type="submit">submit</button>
@@ -148,49 +143,45 @@
                 </button>
             </div>
             <div class="modal-body">
-                    @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div><br />
-                    @endif
                 <form class="editBooks" method="post" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="id" id="editid">
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="name">Book Title:</label>
-                            <input type="text" name="title" id="edittitle" class="form-control" required>
-                                
+                            <input type="text" name="title" id="edittitle" class="form-control">
+                            <small class="edittitle"></small>    
                         </div>
                         <div class="col-md-6">
                             <label for="isbn">ISBN:</label>
-                            <input type="text" name="isbn" id="editisbn" class="form-control" required>
+                            <input type="text" name="isbn" id="editisbn" class="form-control">
+                            <small class="editisbn"></small> 
                         </div>              
                     </div>
                     <div class="form-row">                        
                         <div class="col-md-3">
                             <label for="year">Year Published:</label>
                             <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="edityear">
-                            
+                            <small class="edityear"></small> 
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="author">Author: </label>
-                        <input type="text" class="form-control" name="author" id="editauthor" required>
+                        <input type="text" class="form-control" name="author" id="editauthor">
+                        <small class="editauthor"></small> 
                         <label for="author">Publisher: </label>
-                        <input type="text" class="form-control" name="publisher" id="editpublisher" required>
+                        <input type="text" class="form-control" name="publisher" id="editpublisher">
+                        <small class="editpublisher"></small>                         
                     </div>
                     <div class="form-group">
-                            <select name="category" id="editcategory" class="form-control" required>
+                            <select name="category" id="editcategory" class="form-control">
                                 <option value="" selected disabled> Select Category </option>
                                 @foreach ($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
                                 @endforeach                        
                             </select>
+                        <small class="editcategory"></small>                         
+
                     </div>
                     <div class="item_image">
                         <img src="" id="modalImage" alt="image" height="100" width="100">
@@ -222,8 +213,7 @@
                 type:'POST',
                 url:'{{route("insert")}}',
                 data: $(this).serialize(),
-                success: function(result){
-                    console.log(result.errors);
+                success: function(result){                    
                     if(result['type'] == 'success'){
                         swal({
                             title: "Create",
@@ -239,6 +229,11 @@
                             text: "Some are empty fields",
                             icon: "error",
                         })
+                        for (var prop in result.validation) {
+                            $("#"+prop).attr('class', 'form-control alert-danger');
+                            $("."+prop).html(result.validation[prop]);
+                            console.log(prop)
+                        }
                     }                    
                 }
             });
@@ -291,6 +286,11 @@
                             text: "Some are empty fields",
                             icon: "error",
                         })
+                        for (var prop in result.validation) {
+                            $("#edit"+prop).attr('class', 'form-control alert-danger');
+                            $(".edit"+prop).html(result.validation[prop]);
+                            console.log(prop)
+                        }
                     }    
                     console.log($result);                         
                 }
@@ -320,7 +320,7 @@
                             'id':id,
                         },                
                         success: function(response){
-                            
+                            swal("Deleted", "Book is deleted :)", "success");
                         }
                     });
                     location.reload();                    

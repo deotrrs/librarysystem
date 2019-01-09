@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return redirect(route('view'));
-});
+// Route::get('/', function () {
+//     return redirect(route('view'));
+// });
 
 // Route::get('/', 'UserController@index')->name('view');
 

@@ -68,7 +68,8 @@ class BookController extends Controller
             if($valid->fails()){
                 return array(
                 'type' => 'error',
-                'message' => 'Error!'
+                'message' => 'Error!',
+                'validation'=>$valid->errors()
                 );
             }
             else{
@@ -146,19 +147,20 @@ class BookController extends Controller
                 'category_id'=>$request->category,
            ];
         }    
-        $book = Book::find($id);
-        $book->update($data);    
+        $book = Book::find($id); 
         if($valid->fails()){
-        return array(
-        'type' => 'error',
-        'message' => 'Error!'
-        );
+            return array(
+                'type' => 'error',
+                'message' => 'Error!',
+                'validation'=>$valid->errors()
+                );
         }
         else{
             return array(
             'type' => 'success',
             'message' => 'Successfully Added!'
             );
+            $book->update($data);   
         }
     }
 
