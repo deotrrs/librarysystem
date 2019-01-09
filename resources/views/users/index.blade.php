@@ -1,6 +1,6 @@
 @extends('customlayouts.app')
 
-@section('title', 'View')
+@section('title', 'Books')
 
 @section('navbar')
 
@@ -8,19 +8,22 @@
 <div class="container">
     <div class="row ">
         @foreach ($books as $b)
-        <div class="col-md-3 col-xl-4 col-sm-2 pb-5">           
+        <div class="col-12 col-md-4 col-sm-6 col-lg-4 col-xl-3 py-lg-3 pb-5">           
             <div class="card">
                 <div class="item_image">
-                <img class="card-img-top img-fluid" src="{{asset("storage/images/books/".$b->image_path)}}" alt="Card image cap">
+                <img class="card-img-top img-fluid" src="{{asset("storage/images/books/".$b->image_path)}}" alt="Book Image">
                 </div>                
                 <div class="card-block">
-                    <h4 class="card-title">Book Title:</h4>
-                    <p>{{$b->title}}</p>
+                    <div class="card-title">
+                        <h4>Book Title:</h4>
+                        <h5>{{$b->title}}</h5>
+                    </div>
+                    
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Author: {{$b->author}}</li>
-                        <li class="list-group-item">Published by: {{$b->publisher}}</li>
-                        <li class="list-group-item">Year published: {{$b->year}}</li>
-                        <li class="list-group-item">Category: {{$b->category->name}}</li>
+                        <li class="list-group-item"><b>Author:</b> {{$b->author}}</li>
+                        <li class="list-group-item"><b>Published by:</b> {{$b->publisher}}</li>
+                        <li class="list-group-item"><b>Year published:</b> {{$b->year}}</li>
+                        <li class="list-group-item"><b>Category:</b> {{$b->category->name}}</li>
                     </ul>
                 </div>
             </div>     

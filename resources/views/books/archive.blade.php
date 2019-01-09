@@ -1,6 +1,6 @@
 @extends('customlayouts.app')
 
-@section('title', 'View')
+@section('title', 'Arhives')
 
 @section('navbar')
 
@@ -27,7 +27,7 @@
                     <tbody>
                         @foreach ($books as $b)
                         <tr>
-                            <td><img src="{{asset("storage/images/books/".$b->image_path)}}" alt="" ></td>   
+                            <td><img src="{{asset("storage/images/books/".$b->image_path)}}" alt="Archive books" ></td>   
                             <td>{{$b->title}}</td>
                             <td>{{$b->isbn}}</td>
                             <td>{{$b->author}}</td>
@@ -46,8 +46,7 @@
                             @endforeach
                         </ul>
                     </div><br />
-                    @endif
-                    
+                    @endif           
                 </table>
             </div>
         </div>

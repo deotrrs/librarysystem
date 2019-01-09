@@ -24,8 +24,10 @@
                             <th>ISBN</th>
                             <th>Author</th>
                             <th>Publisher</th>
-                            <th>Year</th>
+                            <th>Year published</th>
                             <th>Category</th>
+                            <th>Date Added</th>
+                            <th>Date Updated</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -34,7 +36,11 @@
                         <tr>
                          <td>
                              <div class="table item_image">
-                                <img src="{{asset("storage/images/books/".$b->image_path)}}" alt="" >
+                                 @if($b->image_path)
+                                <img src="{{asset("storage/images/books/".$b->image_path)}}" alt="published books" >
+                                @else
+                                <img src="..." alt="no image" > No Image
+                                @endif
                              </div>                            
                         </td>   
                         <td>{{$b->title}}</td>
@@ -43,6 +49,8 @@
                             <td>{{$b->publisher}}</td>
                             <td>{{$b->year}}</td>
                             <td>{{$b->category->name}}</td>
+                            <td>{{$b->created_at}}</td>
+                            <td>{{$b->updated_at}}</td>
                             <td>
                                 <button class="btn btn-block btn-info" data-toggle="modal" data-target="#editModal" onclick="edit({{$b->id}})">Edit</button>
                                 <button type="button" id="deletebtn" class="btn btn-block btn-danger" onclick="remove({{$b->id}})">Delete</button>
@@ -60,34 +68,7 @@
                     </div><br />
                     @endif                   
                 </table>
-            </div>
-                {{-- <div class="row ">
-                @foreach ($books as $b)
-                    <div class="col-md-3 col-xl-4 col-sm-2 pb-5">           
-                        <div class="card">
-                            <div class="item_image">
-                            <img class="card-img-top img-fluid" src="{{asset("storage/images/books/".$b->image_path)}}" alt="Card image cap">
-                            </div>                
-                            <div class="card-block">
-                                <h4 class="card-title">Book Title:</h4>
-                                <p>{{$b->title}}</p>
-                                <ul class="list-group list-group-flush">
-                                    <li class="list-group-item">Author: {{$b->author}}</li>
-                                    <li class="list-group-item">Published by: {{$b->publisher}}</li>
-                                    <li class="list-group-item">Year published: {{$b->year}}</li>
-                                    <li class="list-group-item">Category: {{$b->category->name}}</li>
-                                </ul>
-                                <div class="card-block">
-                                        <button class="btn btn-block btn-info" data-toggle="modal" data-target="#editModal" onclick="edit({{$b->id}})">Edit</button>
-                                        <button type="button" id="deletebtn" class="btn btn-block btn-danger" onclick="remove({{$b->id}})">Delete</button>
-                                </div>
-                            </div>
-                        </div>     
-                    </div> 
-                @endforeach        
-            </div>     --}}
-                
-            
+            </div>           
         </div>
     </div>
     <!--Add modal -->
@@ -115,28 +96,30 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="name">Book Title:</label>
-                            <input type="text" name="title" id="title" class="form-control">
-                                
+                            <input type="text" name="title" id="title validationCustom03" class="form-control" required>
+                            <div class="invalid-feedback">
+                                Please choose a username.
+                            </div>    
                         </div>
                         <div class="col-md-6">
                             <label for="isbn">ISBN:</label>
-                            <input type="text" name="isbn" id="isbn" class="form-control">
+                            <input type="text" name="isbn" id="isbn" class="form-control" required>
                         </div>              
                     </div>
                     <div class="form-row">                        
                         <div class="col-md-3">
                             <label for="year">Year Published:</label>
-                            <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="year">
+                            <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="year" required>
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="author">Author: </label>
-                        <input type="text" class="form-control" name="author" id="author">
+                        <input type="text" class="form-control" name="author" id="author" required>
                         <label for="author">Publisher: </label>
-                        <input type="text" class="form-control" name="publisher" id="publisher">
+                        <input type="text" class="form-control" name="publisher" id="publisher" required>
                     </div>
                     <div class="form-group">
-                            <select name="category" id="category" class="form-control">
+                            <select name="category" id="category" class="form-control" required>
                                 <option value="" selected disabled> Select Category </option>
                                 @foreach ($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
@@ -155,7 +138,7 @@
         </div>
     </div>
     <!--Edit modal -->
-    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
             <div class="modal-header">
@@ -180,28 +163,29 @@
                     <div class="form-row">
                         <div class="col-md-6">
                             <label for="name">Book Title:</label>
-                            <input type="text" name="title" id="edittitle" class="form-control">
+                            <input type="text" name="title" id="edittitle" class="form-control" required>
                                 
                         </div>
                         <div class="col-md-6">
                             <label for="isbn">ISBN:</label>
-                            <input type="text" name="isbn" id="editisbn" class="form-control">
+                            <input type="text" name="isbn" id="editisbn" class="form-control" required>
                         </div>              
                     </div>
                     <div class="form-row">                        
                         <div class="col-md-3">
                             <label for="year">Year Published:</label>
                             <input type="number" class="form-control" max="<?=date('Y',strtotime("now"))-1?>" min="1970" name="year" id="edityear">
+                            
                         </div>
                     </div>
                     <div class="form-group">
                         <label for="author">Author: </label>
-                        <input type="text" class="form-control" name="author" id="editauthor">
+                        <input type="text" class="form-control" name="author" id="editauthor" required>
                         <label for="author">Publisher: </label>
-                        <input type="text" class="form-control" name="publisher" id="editpublisher">
+                        <input type="text" class="form-control" name="publisher" id="editpublisher" required>
                     </div>
                     <div class="form-group">
-                            <select name="category" id="editcategory" class="form-control">
+                            <select name="category" id="editcategory" class="form-control" required>
                                 <option value="" selected disabled> Select Category </option>
                                 @foreach ($categories as $c)
                                     <option value="{{$c->id}}">{{$c->name}}</option>
@@ -209,7 +193,7 @@
                             </select>
                     </div>
                     <div class="item_image">
-                        <img src="" id="modalImage" height="100" width="100">
+                        <img src="" id="modalImage" alt="image" height="100" width="100">
                     </div>
                     <div class="form-group">                              
                             <label for="exampleInputEmail1">File</label>

@@ -10,6 +10,6 @@ class UserController extends Controller
     public function index()
     {
         $books = Book::with('category')->get();
-        return view('users.index', compact('books'), compact('categories'));
+        return view('users.index', compact('books'));
     }
 }

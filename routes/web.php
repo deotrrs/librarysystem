@@ -15,7 +15,11 @@ Route::get('/', function () {
     return redirect(route('view'));
 });
 
-Route::get('/', 'UserController@index')->name('view');
+// Route::get('/', 'UserController@index')->name('view');
+
+Route::get('/', function(){
+    return view('index');
+})->name('view');
 
 Route::group(['prefix'=>'books'], function(){
     Route::get('/', 'BookController@index')->name('books');

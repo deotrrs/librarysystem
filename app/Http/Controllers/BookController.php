@@ -124,19 +124,30 @@ class BookController extends Controller
             'category'=>"required",
            ]);
         if ($request->filename) {
-            $filename =  $id.".".$request->filename->getClientOriginalExtension();
+            $filename =  $request->filename->getClientOriginalName();
             Storage::disk('public')->putFileAs('images/books', $request->filename, $request->filename->getClientOriginalName());
+            $data = [
+                'title'=>$request->title,
+                'isbn'=>$request->isbn,
+                'author'=>$request->author,
+                'publisher'=>$request->publisher,
+                'year'=>$request->year,
+                'category_id'=>$request->category,
+                'image_path'=>$filename,
+            ];
+        }
+        else{
+           $data=[
+                'title'=>$request->title,
+                'isbn'=>$request->isbn,
+                'author'=>$request->author,
+                'publisher'=>$request->publisher,
+                'year'=>$request->year,
+                'category_id'=>$request->category,
+           ];
         }    
         $book = Book::find($id);
-        $book->update([
-        'title'=>$request->title,
-        'isbn'=>$request->isbn,
-        'author'=>$request->author,
-        'publisher'=>$request->publisher,
-        'year'=>$request->year,
-        'category_id'=>$request->category,
-        'image_path'=>$request->filename->getClientOriginalName(),
-        ]);    
+        $book->update($data);    
         if($valid->fails()){
         return array(
         'type' => 'error',
