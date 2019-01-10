@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import { Card} from './Main';
-class Layout extends Component {
+import { Table} from './Main';
+class Layouttable extends Component {
     render () {
         return (
             <div className="app">
-                <Card />
+                <Table />
             </div>
         )
     }
 }
 
-export default Layout;
+export default Layouttable;

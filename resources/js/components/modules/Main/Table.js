@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import {TableItem} from './TableItem'
+import {TableItem} from './index'
 class Table extends Component{
     constructor(props) {
         super(props);
@@ -52,3 +52,4 @@ class Table extends Component{
         );
     }
 }
+export default Table;

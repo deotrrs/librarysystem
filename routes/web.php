@@ -15,15 +15,15 @@
 //     return redirect(route('view'));
 // });
 
-// Route::get('/', 'UserController@index')->name('view');
+Route::get('/', 'UserController@index')->name('view');
 
-Route::get('/', function(){
-    return view('index');
-})->name('view');
+// Route::get('/', function(){
+//     return view('index');
+// })->name('view');
 
 Route::get('/table', function(){
     return view('books.react');
-})->name('view');
+})->name('table');
 
 Route::group(['prefix'=>'books'], function(){
     Route::get('/', 'BookController@index')->name('books');
