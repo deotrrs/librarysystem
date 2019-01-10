@@ -60434,12 +60434,12 @@ var TableItem = function TableItem(props) {
     className: "btn btn-block btn-info",
     "data-toggle": "modal",
     "data-target": "#editModal",
-    onclick: ""
+    onClick: ""
   }, "Edit"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     type: "button",
     id: "deletebtn",
     className: "btn btn-block btn-danger",
-    onclick: "remove({{$b->id}})"
+    onClick: "remove({{$b->id}})"
   }, "Delete")));
 };
 

@@ -17,8 +17,8 @@ const TableItem = (props) => (
         <td>{props.data.created_at}</td>
         <td>{props.data.updated_at}</td>
         <td>
-            <button className="btn btn-block btn-info" data-toggle="modal" data-target="#editModal" onclick="">Edit</button>
-            <button type="button" id="deletebtn" className="btn btn-block btn-danger" onclick="remove({{$b->id}})">Delete</button>
+            <button className="btn btn-block btn-info" data-toggle="modal" data-target="#editModal" onClick="">Edit</button>
+            <button type="button" id="deletebtn" className="btn btn-block btn-danger" onClick="remove({{$b->id}})">Delete</button>
         </td>
     </tr>
 
